@@ -18,7 +18,7 @@ mongoose.Query.prototype.exec = async function () {
     // console.log("I am about to run a query");
 
     if(!this.useCache){
-        console.log("I am not controlling cache");
+        console.log("Serving from mongodb not cache");
         return exec.apply(this,arguments)
     }
     const key = JSON.stringify(Object.assign({}, this.getQuery(), {
@@ -42,3 +42,8 @@ mongoose.Query.prototype.exec = async function () {
     return result
 }
 
+module.exports={
+clearHash(hashKey){
+    client.del(JSON.stringify(hashKey))
+}
+}
